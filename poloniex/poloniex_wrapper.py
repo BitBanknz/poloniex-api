@@ -9,7 +9,9 @@ import urllib.request
 import urllib.request
 from collections import defaultdict
 
-from config import logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def createTimeStamp(datestr, format="%Y-%m-%d %H:%M:%S"):

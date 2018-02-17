@@ -1,6 +1,14 @@
 import unittest
 
-from config import poloniex
+poloniex_key = "KEY_HERE"
+poloniex_secret = "KEY_HERE"
+
+from poloniex.poloniex_wrapper import poloniex
+from requests_futures.sessions import FuturesSession
+
+session = FuturesSession(max_workers=10)
+
+poloniex = poloniex(poloniex_key, poloniex_secret, session)
 
 
 class TestPoloniexWrapper(unittest.TestCase):
@@ -28,10 +36,12 @@ class TestPoloniexWrapper(unittest.TestCase):
         print(json)
         self.assertIn('BTC', json)
         self.assertIn('ETH', json)
+
     def test_complete_tradable_balance(self):
         balances = poloniex.returnAllCompleteBalances()
         json = balances.result().json()
         print(json)
+
     def test_getMarginPosition(self):
         balances = poloniex.getMarginPosition()
         json = balances.result().json()
